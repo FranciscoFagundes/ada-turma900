@@ -62,12 +62,11 @@ let pessoas = [];
 
 
 class Pessoa {
-    #nome;
-    #idade;
+
     
     constructor(nome, anoDeNascimento, estadoCivil, horoscopo){
-        this.#nome = nome;
-        this.#idade = 2022 - anoDeNascimento;
+        this.nome = nome;
+        this.idade = 2022 - anoDeNascimento;
         this.anoDeNascimento = anoDeNascimento;
         this.estadoCivil = estadoCivil;
         this.horoscopo = horoscopo;
