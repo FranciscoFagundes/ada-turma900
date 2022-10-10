@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="./dist/animais.js"></script>
+
+    <h1>Cadastro de Animais</h1>
+    <div>
+        <form>
+            <label for="nome">Nome do Animal</label>
+            <input type="text" id="nome" ><br><br>
+            <label for="especie">Espécie</label>
+            <input type="text" id="especie" ><br><br>
+            <label for="raca">Raça</label>
+            <input type="text" id="raca" ><br><br>
+            <label for="porte">Porte</label>
+            <input type="text" id="porte" ><br><br>
+            <label for="idade">Idade</label>
+            <input type="text" id="idade" ><br><br>
+            <label for="sexo">Sexo</label>
+            <input type="text" id="sexo" ><br><br>
+            <label for="vacinado">Vacinado?</label>
+            <input type="text" id="vacinado"><br><br>
+            <label for="castrado">Castrado?</label>
+            <input type="text" id="castrado" ><br><br>
+            <label for="deficiencia">Deficiência?</label>
+            <input type="text" id="deficiencia" ><br><br>
+            <label for="restricaoAlimentar">Restrição Alimentar</label>
+            <input type="text" id="restricaoAlimentar" ><br><br>
+            <label for="personalidade">Personalidade</label>
+            <input type="text" id="personalidade" ><br><br>
+            <button type="button" onclick="cadastrarAnimais()">Cadastrar</button>
+        </form>
+        <button type="button" onclick="listarAnimais()">Listar Animais</button>
+    </div>
+    
+</body>
+</html>
