@@ -96,16 +96,29 @@ const cadastrarVeterinario = (): void => {
         turno
     );
     
-    
+    //localStorage.setItem("veterinario", JSON.stringify(veterinario));
 
-    
-    localStorage.setItem("veterinario", JSON.stringify(veterinario));
+    let arrayVeterinarios: object[] = [];
+
+    arrayVeterinarios = JSON.parse(localStorage.getItem("listaDeVeterinarios")!) ? JSON.parse(localStorage.getItem("listaDeVeterinarios")!) : [];
+
+    arrayVeterinarios.push(veterinario);
+
+    localStorage.setItem("listaDeVeterinarios", JSON.stringify(arrayVeterinarios));
+
+
+
+
+
 }
 
 const listarVeterinario = (): void => {
-    let veterinario: any = "";
+    let listaDeVeterinarios: any = "";
 
-    veterinario = localStorage.getItem("veterinario")?.toString();
+    listaDeVeterinarios = localStorage.getItem("listaDeVeterinarios")?.toString();
 
-    console.log(veterinario);
+    console.log(JSON.parse(listaDeVeterinarios));
 }
+
+
+

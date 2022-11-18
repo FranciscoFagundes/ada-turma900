@@ -35,7 +35,6 @@ class Veterinario extends Pessoa {
     }
 }
 const cadastrarVeterinario = () => {
-    var _a;
     let nome = document.getElementById("nome").value;
     let dataDeNascimento = document.getElementById("dataDeNascimento").value;
     let genero = document.getElementById("genero").value;
@@ -50,19 +49,15 @@ const cadastrarVeterinario = () => {
     let especializacao = document.getElementById("especializacao").value;
     let turno = document.getElementById("turno").value;
     let veterinario = new Veterinario(nome, dataDeNascimento, genero, cpf, endereco, cidade, estado, telefone, email, crmv, formacao, especializacao, turno);
-    // localStorage.setItem("veterinario", JSON.stringify(veterinario));
+    //localStorage.setItem("veterinario", JSON.stringify(veterinario));
     let arrayVeterinarios = [];
-    let veterinarios = (_a = localStorage.getItem("veterinarios")) === null || _a === void 0 ? void 0 : _a.toString();
-    if (veterinarios != null) {
-        arrayVeterinarios = JSON.parse(veterinarios);
-    }
-    else {
-        arrayVeterinarios = [];
-    }
+    arrayVeterinarios = JSON.parse(localStorage.getItem("listaDeVeterinarios")) ? JSON.parse(localStorage.getItem("listaDeVeterinarios")) : [];
+    arrayVeterinarios.push(veterinario);
+    localStorage.setItem("listaDeVeterinarios", JSON.stringify(arrayVeterinarios));
 };
 const listarVeterinario = () => {
     var _a;
-    let veterinario = "";
-    veterinario = (_a = localStorage.getItem("veterinarios")) === null || _a === void 0 ? void 0 : _a.toString();
-    console.log(veterinario);
+    let listaDeVeterinarios = "";
+    listaDeVeterinarios = (_a = localStorage.getItem("listaDeVeterinarios")) === null || _a === void 0 ? void 0 : _a.toString();
+    console.log(JSON.parse(listaDeVeterinarios));
 };
