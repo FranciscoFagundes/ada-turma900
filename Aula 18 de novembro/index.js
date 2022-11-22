@@ -1,9 +1,17 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const app = express();
 const port = 3000;
 
+
+app.use(cookieParser());
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
+
+// app.use((req, res, next) => {
+//     console.log(`Método de chamada: ${req.method} -  URL: ${req.url}`);
+//     next();
+// });
 
 const users = [
     {
@@ -45,14 +53,14 @@ app.get('/users', (req, res) => {
     res.status(200).send(users);
 });
 
-app.get('/user/:name', (req,res) => {
-    const reqName = req.params.name;
-    const userName = users.find((user) => user.name == reqName);
+app.get('/user/:name', (req, res) => {
+    const { name } = req.params;
+    const userName = users.find((user) => user.name.toUpperCase() == name.toUpperCase());
     userName ? res.send(userName) : res.status(404).send("Usuário não encontrado");
 });
 
 class User {
-    constructor(id, name, cpf, gender, birthDate){
+    constructor(id, name, cpf, gender, birthDate) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
@@ -61,23 +69,46 @@ class User {
     }
 }
 
-app.post('/addUser', (req, res) => {
+checkAuthorization = (req, res, next) => {
+    console.log("Checando autorização");
+    const { authorization } = req.headers;
 
+    if (authorization == '1234') {
+        next();
+    } else {
+        res.status(403).send("Acesso Proibido");
+    }
+}
+
+app.post('/addUser', checkAuthorization, (req, res) => {
     let newId = parseInt(req.body.id);
     let newName = req.body.name;
     let newCPF = req.body.cpf;
     let newGender = req.body.gender;
     let newBirthDate = req.body.birthDate;
 
-    let user = new User(newId, newName, newCPF, newGender, newBirthDate);
+    if (newName && newName != null) {
+        let user = new User(newId, newName, newCPF, newGender, newBirthDate);
+        users.push(user);
+        res.status(201).send("Usuário adicionado");
+    } else {
+        res.status(200).send("Campo de nome obrigatório");
+    }
+}
+);
 
-    users.push(user);
-
-    res.send("Usuário adicionado");
+app.put('/updateUser', checkAuthorization, (req, res) => {
+    res.send("usuário atualizado");
 });
 
 
+
+app.get('/signin', (res,req, next) => {
+    res.cookie('session_id', '12345');
+    res.status(200).json({ "msg" : "Usuário Logado"});
+});
 
 app.listen(port, () => {
     console.log(`O servidor está rodando na porta ${port}`);
 });
+
